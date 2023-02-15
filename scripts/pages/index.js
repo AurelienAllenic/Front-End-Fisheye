@@ -30,8 +30,8 @@
         const photographersSection = document.querySelector(".photographer_section");
 
         photographers.forEach((photographer) => {
-            const photographerModel = photographerFactory(photographer);
-            const mediaCardDOM = photographerModel.getUserCardDOM();
+            const photographerModel = new ProfilePhotographer(photographer);
+            const mediaCardDOM = ProfilePhotographer.createProfile();
             photographersSection.appendChild(mediaCardDOM);
         });
     };
