@@ -27,12 +27,14 @@
     }
 
     async function displayData(photographers) {
-        const photographersSection = document.querySelector(".photographer_section");
+      
 
         photographers.forEach((photographer) => {
-            const photographerModel = new ProfilePhotographer(photographer);
-            const mediaCardDOM = ProfilePhotographer.createProfile();
-            photographersSection.appendChild(mediaCardDOM);
+          const photographersSection = document.querySelector(".photographer_section");
+            const photographerModel =  profilePhotographer(photographer);
+            const userCardDOM = photographerModel.createProfile();
+            photographersSection.appendChild(userCardDOM);
+            
         });
     };
 
