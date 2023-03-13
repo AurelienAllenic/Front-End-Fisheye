@@ -1,12 +1,9 @@
 //Mettre le code JavaScript lié à la page photographer.html
-
 const photographerId = window.location.search.split("?id=").join("");
-console.log(photographerId);
 
 /* Medias and photographer Handling */
 
-let aboutPhotographer = [];
-let mediasAboutPhotographer = [];
+let mediasOfPhotographer = [];
 
 let OurPhotographer = [];
 
@@ -18,90 +15,147 @@ async function fetchMedias() {
     .then(response => {
      return response.json();
    }).then(aboutPhotographer => {
-     // We retrieve our datas and insert them into our array infosPhotographers
-    for(i= 0; i < aboutPhotographer.media.length; i++){
+     // We retrieve our medias and insert them into our array mediasOfPhotographer
+    for(let i= 0; i < aboutPhotographer.media.length; i++){
         if(aboutPhotographer.media[i].photographerId == photographerId){
-            mediasAboutPhotographer.push(aboutPhotographer.media[i])  }   
-    } 
-    for(i= 0; i < aboutPhotographer.photographers.length; i++){
+            mediasOfPhotographer.push(aboutPhotographer.media[i])  }   
+    }  // We retrieve our photographer infos and insert them into our array OurPhotographer
+    for(let i= 0; i < aboutPhotographer.photographers.length; i++){
     if(aboutPhotographer.photographers[i].id == photographerId){
         OurPhotographer.push(aboutPhotographer.photographers[i])
-        console.log(OurPhotographer)
 }       
     }       
    }).catch(err => {
-     console.log("error")
+     console.log(err + "error")
    });
      
      // We return our array 
      return ({
-         aboutPhotographers: mediasAboutPhotographer, OurPhotographer})
+         aboutPhotographers: mediasOfPhotographer, OurPhotographer})
  }
- async function displayData(mediasAboutPhotographer) {
+
+ async function displayDataPhotographer(OurPhotographer) {
+  const photographerSection = document.querySelector(".photograph-header");
+
+  OurPhotographer.forEach((OurPhotographer) => {
+    /* eslint-disable */
+      const photographerModel = OurPhotographerFactory(OurPhotographer);
+      const userCardDOM = photographerModel.getOurUserCardDOM();
+      photographerSection.appendChild(userCardDOM);
+  });
+}
+
+ async function displayData(mediasOfPhotographer) {
+  let position = 0;
+  let count = 0;
     const mediasSection = document.querySelector(".medias_section");
   
-    mediasAboutPhotographer.forEach((mediasAboutPhotographer) => {
-        const mediaModel = mediaFactory(mediasAboutPhotographer);
-        console.log(mediasAboutPhotographer, "mediasAboutPhotographer")
+    mediasOfPhotographer.forEach((mediasOfPhotographer) => {
+      count += mediasOfPhotographer.likes;
+      /* eslint-disable */
+        const mediaModel = mediaFactory(mediasOfPhotographer, position);
         const mediaCardDOM = mediaModel.getMediaCardDOM();
         mediasSection.appendChild(mediaCardDOM);
+        position += 1;
     });
-};
-async function displayDataPhotographer(OurPhotographer) {
-    const photographerSection = document.querySelector(".photograph-header");
-
-    OurPhotographer.forEach((OurPhotographer) => {
-        const photographerModel = OurPhotographerFactory(OurPhotographer);
-        const userCardDOM = photographerModel.getOurUserCardDOM();
-        photographerSection.appendChild(userCardDOM);
-    });
-};
-
-async function init() {
-    // Récupère les datas des photographes
-    const { photographers } = await fetchMedias();
-    displayData(mediasAboutPhotographer);
-    displayDataPhotographer(OurPhotographer);
-    console.log(mediasAboutPhotographer)
-    console.log(OurPhotographer)
-};
-
-//// TO MODIFY NOT DEFINITIVE /////
-
-function openGallery(object){
-
-  let img = object.getElementsByTagName('img')[0] ?? object.getElementsByTagName('video')[0];
-  let modal = document.getElementById("gallery_modal");
-
-  if(img.getAttribute('data-type') == 'img'){
-      document.getElementById("medias_modal_video").classList.add('none');
-      document.getElementById("medias_modal").classList.remove('none');
-      document.getElementById("medias_modal").src = img.getAttribute('src');
-  } else {
-      document.getElementById("medias_modal").classList.add('none');
-      document.getElementById("medias_modal_video").classList.remove('none');
-      document.getElementById("medias_modal_video").src = img.getAttribute('src');
-  }
-
-  document.getElementById("gallery-title").innerHTML = img.getAttribute('data-title');
-  document.getElementById("gallery-previous").setAttribute('src-current', img.getAttribute('data-position'));
-  document.getElementById("gallery-next").setAttribute('src-current', img.getAttribute('data-position'));
-  
-  const carousel = document.getElementById('medias_modal')
-  carousel.style.display = "flex";
-  
-  mediasSection = document.getElementById("medias")
-  mediasSection.style.display="none"
-  photographSection = document.getElementById('photograph_header')
-  photographSection.style.display = "none"
-//Creating our elements and setting them with attributes
-  const button = document.createElement('img')
-  button.setAttribute("src", "assets/icons/test.svg")
-  button.classList.add('closure_button')
+    document.getElementById('totalLikes').innerHTML = count 
 
 }
 
+/////////////////////////////////////////////
+window.onload = function(){
+  LoadLikes()
+}
+async function LoadLikes(){
+  // Without await we don't have the right infos
+await fetchMedias()
+
+  // Getting all our likes buttons
+  let likes = document.getElementsByClassName("heart");
+
+  let likingPost = function() {
+      // Count, if it's 1, the post has been already liked, else no
+      let count = parseInt(this.getAttribute("post-like"));
+      // Getting the id of the post with data-id
+      let id = this.getAttribute("post-id");
+      let total = parseInt(document.getElementById("totalLikes").innerHTML);
+      let current = parseInt(document.getElementById("like-"+id).innerHTML);
+
+      if(count===1){
+          document.getElementById("totalLikes").innerHTML = total+1;
+          document.getElementById("like-"+ id).innerHTML = current+1;
+          this.setAttribute('post-like', 0);
+          this.setAttribute('src', 'assets/icons/heart-solid.svg');
+      } else {
+          document.getElementById("totalLikes").innerHTML = total-1;
+          document.getElementById("like-"+ id).innerHTML = current-1;
+          this.setAttribute('post-like', 1);
+          this.setAttribute('src', 'assets/icons/heart-solid-black.svg');
+      }
+
+  };
+
+  for (let i = 0; i < likes.length; i++) {
+      likes[i].addEventListener('click', likingPost, false);
+  }
+
+}
+//////////////////////////////////////////////////////////////////
+/* eslint-disable */
+function openGallery(object){
+
+  //Getting all our elements
+  let modalVideo = document.getElementById("medias_modal_video");
+  let modalImg = document.getElementById("medias_modal_img");
+  let galleryImg = document.getElementById("gallery-img");
+  let galleryVideo = document.getElementById("gallery-video");
+  let sourceVideo = document.getElementById("source-video");
+  let galleryTitle = document.getElementById("gallery-title")
+  /////////////////////////
+
+  let img = object.getElementsByTagName('img')[0] ?? object.getElementsByTagName('video')[0]
+
+  if(img.getAttribute('data-type') == 'img'){
+    img.setAttribute("class", "gallery-item-img")
+    let title = img.getAttribute("data-title")
+    console.log(title)
+    galleryImg.removeAttribute("alt", title)
+    galleryImg.setAttribute("alt", title)
+    modalVideo.classList.add('none');
+    galleryImg.classList.remove('none');
+    galleryImg.src = img.getAttribute('src');    
+  } else {
+    let title = img.getAttribute("data-title")
+    sourceVideo.removeAttribute("title", title)
+    sourceVideo.setAttribute("title", title)
+    modalImg.classList.add('none');
+    galleryVideo.classList.remove('none');
+    galleryVideo.src = img.getAttribute('src');
+    sourceVideo.src = img.getAttribute('src');
+  }
+  galleryTitle.innerHTML = img.getAttribute('data-title');
+  galleryTitle.classList.add("modal_gallery")
+  document.getElementById("gallery-previous").setAttribute('src-current', img.getAttribute('data-position'));
+  document.getElementById("gallery-next").setAttribute('src-current', img.getAttribute('data-position'));
+  
+  // Showing only carousel modal
+  const carousel = document.getElementById('medias_modal')
+  carousel.style.display = "flex";
+  let mediasSection = document.getElementById("medias")
+  mediasSection.style.display="none"
+  let photographSection = document.getElementById('photograph_header')
+  photographSection.style.display = "none"
+  const selector = document.querySelector(".selectBox_container");
+  selector.style.display="none"
+}
 //////////////
+
+async function init() {
+  // Récupère les datas des photographes
+   await fetchMedias();
+  displayDataPhotographer(OurPhotographer);
+  displayData(mediasOfPhotographer);
+}
 
 init();
 /* -------------------------------------------------------------------- */
@@ -132,29 +186,36 @@ let isValidLast = false;
 let isValidMail = false;
 let isValidMessage = false;
 
+let valueFirstName = null;
+let valueLastName = null;
+let valueEmail = null;
+let valueMessage = null;
+
 //  firstName Errors
 
 firstName.addEventListener("input", (e) => {
     // If nothing was written in this input, value null and isValidFirst false
     if (e.target.value.length == 0) {
       firstNameError.innerHTML = "Le prénom doit comporter entre 2 et 25 caractères";
-      valueFirstName = null;
+      let valueFirstName = null;
       isValidFirst = false;
-      console.log(valueFirstName);
+      return valueFirstName, isValidFirst
     // If we are not between 2 and 25 characters, we display an error message, value null and isValidFirst false
     } else if (e.target.value.length < 2 || e.target.value.length > 25) {
       firstNameError.classList.add("errorMsg")
       firstNameError.innerHTML =
         "Le prénom doit comporter entre 2 et 25 caractères";
-      valueFirstName = null;
+      let valueFirstName = null;
       isValidFirst = false;
+      return valueFirstName, isValidFirst
     }
     // If we are between 3 and 25 characters, we display a green message, value equal to what is written and isValid true
     if (e.target.value.match(/^[a-z A-Z]{2,25}$/)) {
       firstNameError.classList.remove("errorMsg")
       firstNameError.innerHTML = "";
-      valueFirstName = e.target.value;
+      let valueFirstName = e.target.value;
       isValidFirst = true;
+      return valueFirstName, isValidFirst
     }
     // If we are between 3 and 25 characters, but some special characters are there, we delete our class for green messages and add a class for errors. display a green message, value null and isValid false
     if (
@@ -166,7 +227,8 @@ firstName.addEventListener("input", (e) => {
       firstNameError.innerHTML =
         "le prénom ne doit pas contenir de caractère spécial (accent, chiffre)";
       isValidFirst = false;
-      valueFirstName = null;
+      let valueFirstName = null;
+      return valueFirstName, isValidFirst
     }
   });
   
@@ -212,14 +274,14 @@ firstName.addEventListener("input", (e) => {
       emailError.innerHTML = "";
       valueEmail = null;
       isValidMail = false;
-    } else if (e.target.value.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
+    } else if (e.target.value.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
       emailError.classList.remove("errorMsg")
       emailError.innerHTML = "";
       valueEmail = e.target.value;
       isValidMail = true;
     }
     if (
-      !e.target.value.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/) &&
+      !e.target.value.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/) &&
       !e.target.value == 0
     ) {
       emailError.classList.add("errorMsg")
@@ -294,7 +356,7 @@ message.addEventListener("input", (e) => {
     // Form Validation by our variables IsValid...
   
   if(!isValidFirst || !isValidLast || !isValidMail || !isValidMessage){
-    alert("formulaire invalide (pensez à remplir tous les champs sans erreurs, à cocher le lieu souhaité du tournoi et accepter les conditions d'utilisation")
+    alert("formulaire invalide")
   } 
   else {
     // Closing modal, display validation modal
@@ -312,3 +374,18 @@ message.addEventListener("input", (e) => {
   };
   /* ---------------------------------------------------------- */
  submit.addEventListener("click", validateForm);
+
+ document.onkeydown = (e) => {
+  let modal = document.getElementById("contact_modal")
+  e = e || window.event;
+  if (e.key === 'ArrowLeft') {
+      document.getElementById('gallery-previous').click();
+  } else if (e.key === 'ArrowRight') {
+      document.getElementById('gallery-next').click();
+  } else if (e.key === 'Escape') {
+      document.getElementById('gallery-close').click();
+      document.getElementById('modal_closure').click();
+  } else if (e.key === "Enter" && modal.style.display === "block") {
+      document.getElementById('btn-submit').click();
+  }
+}

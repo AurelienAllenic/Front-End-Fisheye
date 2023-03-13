@@ -1,3 +1,4 @@
+/* eslint-disable */
 function OurPhotographerFactory(data) {
     const { name, portrait, id, tagline, city, price, country } = data;
 
@@ -31,6 +32,10 @@ function OurPhotographerFactory(data) {
         const h5 = document.createElement('h5')
         h5.textContent = price+"€ / jour"
         
+        const containerPrice = document.createElement('div')
+        containerPrice.setAttribute('class', 'container_total_price')
+        const containerLikes = document.createElement('div')
+        containerLikes.setAttribute('class', 'container_total_likes')
         // Handling first div
         const div = document.createElement('div')
         div.classList.add("photographer-section")
@@ -38,15 +43,27 @@ function OurPhotographerFactory(data) {
 
         // Handling second div
         const aside = document.createElement('div')
+        aside.setAttribute('id', 'aside')
         aside.classList.add('aside')
         ///////////////////////
+
+        const totalLikes = document.createElement('h5')
+        totalLikes.setAttribute('id', 'totalLikes')
+
+        const heartContainer = document.createElement('img')
+        heartContainer.setAttribute('src', "/assets/icons/heart-solid-black.svg")
+        heartContainer.setAttribute('class', "heart-total")
 
         const imgContainer = document.createElement('article');
 
         // Append child to create our template
         div.appendChild(article)
         div.appendChild(aside)
-        aside.appendChild(h5)
+        aside.appendChild(containerLikes)
+        containerLikes.appendChild(totalLikes)
+        containerLikes.appendChild(heartContainer)
+        aside.appendChild(containerPrice)
+        containerPrice.appendChild(h5)
         div.appendChild(imgContainer)
         article.appendChild(h2);
         article.appendChild(h3);

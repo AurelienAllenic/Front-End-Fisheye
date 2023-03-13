@@ -7,6 +7,8 @@ function displayModal() {
     // Added behaviour for the rest of the page
     const mediasSection = document.querySelector(".medias_section");
     mediasSection.style.display = "none";
+    const selector = document.querySelector(".selectBox_container");
+    selector.style.display="none"
 }
 
 function closeModal() {
@@ -17,4 +19,12 @@ function closeModal() {
     contactButton.style.visibility = "visible";
     const mediasSection = document.querySelector(".medias_section");
     mediasSection.style.display = "grid";
+    const selector = document.querySelector(".selectBox_container");
+    selector.style.display="flex"
 }
+
+let open = document.getElementById("modal_oppening");
+let close = document.getElementById("modal_closure");
+
+open.addEventListener("click", displayModal)
+close.addEventListener("click", closeModal)
