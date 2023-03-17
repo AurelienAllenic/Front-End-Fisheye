@@ -1,19 +1,19 @@
 // Array that will contain the result of the fetch
     let InfosPhotographers = []
     
-    // Function to fetch and return data
+// Function to fetch and return data
     async function getPhotographers() {
        // We fetch our json file with a GET method
         await fetch(`../data/photographers.json`, {
-        method: 'GET'
-       })
-       .then(response => {
-        return response.json();
-      }).then(photographers => {
+            method: 'GET'
+        })
+        .then(response => {
+          return response.json();
+        }).then(photographers => {
         // We retrieve our datas and insert them into our array infosPhotographers
-       for(let i= 0; i < photographers.photographers.length; i++){
+for(let i= 0; i < photographers.photographers.length; i++){
         InfosPhotographers.push(photographers.photographers[i])     
-       }       
+}       
       }).catch(err => {
         console.log(err + "error")
       });
