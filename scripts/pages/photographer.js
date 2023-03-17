@@ -96,7 +96,7 @@ await fetchMedias()
   };
 
   for (let i = 0; i < likes.length; i++) {
-      likes[i].addEventListener('click', likingPost, false);
+      likes[i].addEventListener('click', likingPost);
   }
 
 }

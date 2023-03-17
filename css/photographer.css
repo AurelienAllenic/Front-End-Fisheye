@@ -20,8 +20,7 @@
 }
 .arrow_selection:hover{
   cursor: pointer;
-  height: 1.7em;
-  margin-top: 8%;
+  transform: scale(1.2);
 }
 #selectBoxVisible{
   background-color: #901C1C;
@@ -45,7 +44,7 @@
 }
 .container_arrow_first_choice:hover #first-choice{
 color: black;
-font-weight: 700;
+font-weight: 500;
 }
 #third-choice{
   padding-top: 10%;
@@ -57,13 +56,13 @@ font-weight: 700;
 }
  #second-choice:hover{
   color: black;
-  font-weight: 700;
+  font-weight: 500;
   background-color: #D3573C;
 }
 
 #third-choice:hover{
   color: black;
-  font-weight: 700;
+  font-weight: 500;
   background-color: #D3573C;
 }
 .container_arrow_first_choice:hover {
