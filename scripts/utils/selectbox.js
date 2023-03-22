@@ -11,7 +11,9 @@ selector.innerHTML = `
         <div id="selectBoxVisible">
             <span class="container_arrow_first_choice">
                 <button type="button" class="btn-choice" id="first-choice" data-filtre="likes">Popularité</button>
+              <p class="button-arrow" tabindex="10">
                     <img src="/assets/icons/chevron-up-solid.svg" class="arrow_selection" id="arrow_selection" role="button" aria-hashpop="listbox" aria-expanded/> 
+                </p>
             </span>
             <span id="hidden_options" class="hidden_options">
             <button type="button" class="btn-choice" data-filtre="date" id="second-choice">Date</button>

@@ -10,6 +10,7 @@ function getMediaCardDOM() {
     article.setAttribute("post-date", date);
     article.setAttribute("post-title", title);
     article.setAttribute("class", "gallery-item");
+    article.setAttribute('tabindex', position)
     //Handling Images 
     const span = document.createElement('span')
     span.classList.add("infosAboutPhoto")

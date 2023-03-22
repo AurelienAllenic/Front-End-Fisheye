@@ -118,7 +118,6 @@ function openGallery(object){
   if(img.getAttribute('data-type') == 'img'){
     img.setAttribute("class", "gallery-item-img")
     let title = img.getAttribute("data-title")
-    console.log(title)
     galleryImg.removeAttribute("alt", title)
     galleryImg.setAttribute("alt", title)
     modalVideo.classList.add('none');
@@ -199,25 +198,22 @@ firstName.addEventListener("input", (e) => {
       firstNameError.innerHTML = "Le prénom doit comporter entre 2 et 25 caractères";
       let valueFirstName = null;
       isValidFirst = false;
-      return valueFirstName, isValidFirst
     // If we are not between 2 and 25 characters, we display an error message, value null and isValidFirst false
     } else if (e.target.value.length < 2 || e.target.value.length > 25) {
       firstNameError.classList.add("errorMsg")
       firstNameError.innerHTML =
         "Le prénom doit comporter entre 2 et 25 caractères";
-      let valueFirstName = null;
+      valueFirstName = null;
       isValidFirst = false;
-      return valueFirstName, isValidFirst
     }
-    // If we are between 3 and 25 characters, we display a green message, value equal to what is written and isValid true
+    // If we are between 2 and 25 characters, we display a green message, value equal to what is written and isValid true
     if (e.target.value.match(/^[a-z A-Z]{2,25}$/)) {
       firstNameError.classList.remove("errorMsg")
       firstNameError.innerHTML = "";
-      let valueFirstName = e.target.value;
+      valueFirstName = e.target.value;
       isValidFirst = true;
-      return valueFirstName, isValidFirst
     }
-    // If we are between 3 and 25 characters, but some special characters are there, we delete our class for green messages and add a class for errors. display a green message, value null and isValid false
+    // If we are between 2 and 25 characters, but some special characters are there, we delete our class for green messages and add a class for errors. display a green message, value null and isValid false
     if (
       !e.target.value.match(/^[a-z A-Z]{2,25}$/) &&
       e.target.value.length > 2 &&
@@ -227,8 +223,7 @@ firstName.addEventListener("input", (e) => {
       firstNameError.innerHTML =
         "le prénom ne doit pas contenir de caractère spécial (accent, chiffre)";
       isValidFirst = false;
-      let valueFirstName = null;
-      return valueFirstName, isValidFirst
+      valueFirstName = null;
     }
   });
   

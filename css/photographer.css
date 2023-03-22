@@ -15,12 +15,21 @@
 }
 .arrow_selection{
   height: 1.5em;
-  margin-top: 10%;
+  margin-top: 53%;
   background-color: transparent;
 }
 .arrow_selection:hover{
   cursor: pointer;
   transform: scale(1.2);
+}
+.button-arrow{
+  background-color: transparent;
+  outline: none;
+  border: none;
+  width: 100%;
+}
+.button-arrow:focus{
+  border: 1px solid black;
 }
 #selectBoxVisible{
   background-color: #901C1C;
@@ -112,6 +121,9 @@ font-weight: 500;
 }
 .btn-choice:hover{
   cursor: pointer;
+}
+.btn-choice:focus{
+  border: 1px solid black;
 }
 #hidden_options button{
   background-color: transparent;
