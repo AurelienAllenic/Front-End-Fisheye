@@ -382,5 +382,7 @@ message.addEventListener("input", (e) => {
       document.getElementById('modal_closure').click();
   } else if (e.key === "Enter" && modal.style.display === "block") {
       document.getElementById('btn-submit').click();
+  }else if(e.key === "Enter"){
+      document.getElementById('arrow_selection').click();
   }
 }

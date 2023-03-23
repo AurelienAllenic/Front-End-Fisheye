@@ -16,8 +16,8 @@ selector.innerHTML = `
                 </p>
             </span>
             <span id="hidden_options" class="hidden_options">
-            <button type="button" class="btn-choice" data-filtre="date" id="second-choice">Date</button>
-            <button type="button" class="btn-choice" data-filtre="title" id="third-choice">Titre</button>
+            <button type="button" class="btn-choice" data-filtre="date" id="second-choice" tabindex="0">Date</button>
+            <button type="button" class="btn-choice" data-filtre="title" id="third-choice" tabindex="0">Titre</button>
             </span>
             </div>
         </div>`;
