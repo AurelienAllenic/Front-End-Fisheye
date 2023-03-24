@@ -384,5 +384,10 @@ message.addEventListener("input", (e) => {
       document.getElementById('btn-submit').click();
   }else if(e.key === "Enter"){
       document.getElementById('arrow_selection').click();
+     /* let heart =document.getElementsByClassName("heart");
+      console.log(heart)
+      heart.forEach((hea => {
+        hea.click();
+      }))*/
   }
 }

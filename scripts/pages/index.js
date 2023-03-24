@@ -35,9 +35,18 @@ for(let i= 0; i < photographers.photographers.length; i++){
     };
 
     async function init() {
+      
         // Récupère les datas des photographes
         const { photographers } = await getPhotographers();
         displayData(photographers);
+        // Récupération des liens pour les rendre visitables au clavier
+        let a = document.getElementsByTagName('a');
+        e = e || window.event;
+        for(let i = 0; i< a.length; i++){
+        if(a[i].focus() && e.key ==="Enter"){
+            a[i].click()
+          };
+        }
     };
     
     init();
