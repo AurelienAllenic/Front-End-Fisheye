@@ -5,6 +5,7 @@ body {
 }
 button{
     border: none;
+    background-color: transparent;
 }
 header {
     display: flex;

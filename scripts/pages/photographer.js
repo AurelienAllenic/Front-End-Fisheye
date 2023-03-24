@@ -84,19 +84,23 @@ await fetchMedias()
       if(count===1){
           document.getElementById("totalLikes").innerHTML = total+1;
           document.getElementById("like-"+ id).innerHTML = current+1;
+          this.classList.remove("heart");
+          this.classList.add("heart-red");
           this.setAttribute('post-like', 0);
-          this.setAttribute('src', 'assets/icons/heart-solid.svg');
       } else {
           document.getElementById("totalLikes").innerHTML = total-1;
           document.getElementById("like-"+ id).innerHTML = current-1;
+          this.classList.remove("heart-red");
+          this.classList.add("heart");
           this.setAttribute('post-like', 1);
-          this.setAttribute('src', 'assets/icons/heart-solid-black.svg');
       }
 
   };
 
   for (let i = 0; i < likes.length; i++) {
+    
       likes[i].addEventListener('click', likingPost);
+      
   }
 
 }
@@ -390,8 +394,6 @@ if (gallery.style.display === "flex") {
    else if (e.key === 'Escape') {
       document.getElementById('gallery-close').click()}  
  }
-
-
  if (modal.style.display === "block") {
   if(e.key === 'Escape'){
         document.getElementById('modal_closure').click();
@@ -400,5 +402,4 @@ if (gallery.style.display === "flex") {
 if(a.focus() && e.key == "Enter"){
     a.click();
   }
-
 }

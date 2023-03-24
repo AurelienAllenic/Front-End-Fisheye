@@ -237,11 +237,6 @@ form input {
     animation-duration: 0.5s;
     cursor: pointer;
 }
-.medias_section article span:focus{
-    transform: scale(1.05);
-    animation-delay: 0.5s;
-    cursor: pointer;
-}
 .gallery-item-img {
     height: 400px;
     width: 400px;
@@ -280,10 +275,20 @@ form input {
    height: 25px;
    width: 25px;
    margin-left: 10px;
+   background: url("../assets/icons/heart-solid-black.svg");
 }
 .heart:hover{
   height: 30px;
    width: 30px;
+}
+.heart:focus{
+ border: 1px solid black;
+}
+.heart-red{
+  height: 25px;
+  width: 25px;
+  margin-left: 10px;
+  background: url("../assets/icons/heart-solid.svg");
 }
   .infosAboutPhoto{
     display: flex;

@@ -10,7 +10,6 @@ function getMediaCardDOM() {
     article.setAttribute("post-date", date);
     article.setAttribute("post-title", title);
     article.setAttribute("class", "gallery-item");
-    article.setAttribute('tabindex', position)
     //Handling Images 
     const span = document.createElement('span')
     span.classList.add("infosAboutPhoto")
@@ -46,13 +45,14 @@ function getMediaCardDOM() {
         titlePost.innerHTML = likes
         titlePost.setAttribute("aria-label", "likes");
         
-        const heart = document.createElement('img')
-        heart.setAttribute('src', "/assets/icons/heart-solid-black.svg")
+        const heart = document.createElement('button')
+       
         heart.setAttribute('class', 'heart')
         heart.setAttribute("post-like", "1")
         heart.setAttribute("id", "like-" + id)
         heart.setAttribute("alt", "likes of : "+ title);
         heart.setAttribute('post-id', id)
+        heart.setAttribute("tabindex", 0)
         ///////////////////////
 
         // Container for image
@@ -60,7 +60,10 @@ function getMediaCardDOM() {
         containerImg.setAttribute("onclick", "openGallery(this)")
         containerImg.setAttribute("class", "gallery-open")
         ///////////////////////
-
+        const svg = document.createElement('img')
+        svg.setAttribute('src', "/assets/icons/heart-solid-black.svg")
+        svg.setAttribute("alt", "likes");
+        
         //AppendChild to handling our images
         article.appendChild(containerImg);
         containerImg.appendChild(img)
@@ -69,6 +72,7 @@ function getMediaCardDOM() {
         span.appendChild(containerHeartAndText);
         containerHeartAndText.appendChild(titlePost);
         containerHeartAndText.appendChild(heart);
+
 
         return (article)
             } 
@@ -90,17 +94,21 @@ function getMediaCardDOM() {
         titlePost.setAttribute("id", "like-" + id);
         titlePost.innerHTML = likes
         
-        const heart = document.createElement('img')
-        heart.setAttribute('src', "/assets/icons/heart-solid-black.svg")
+        const heart = document.createElement('button')
         heart.setAttribute('class', 'heart')
         heart.setAttribute("post-like", "1")
         heart.setAttribute("id", "like-" + id)
-        heart.setAttribute("alt", "likes");
         heart.setAttribute('post-id', id)
+        heart.setAttribute("tabindex", 0)
+
+        const svg = document.createElement('img')
+        svg.setAttribute('src', "/assets/icons/heart-solid-black.svg")
+        svg.setAttribute("alt", "likes");
         ///////////////////////
             
-            // Creating clickable div to contain our video tag
+            // Creating clickabl                    e div to contain our video tag
             const divVideo = document.createElement('button')
+            divVideo.setAttribute("class", "gallery-open") 
             divVideo.setAttribute("onclick", "openGallery(this)") 
             ///////////////////////
 
@@ -121,6 +129,7 @@ function getMediaCardDOM() {
             span.appendChild(containerHeartAndText);
             containerHeartAndText.appendChild(titlePost);
             containerHeartAndText.appendChild(heart);
+
             return (article)
         }
     }   
