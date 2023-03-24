@@ -400,7 +400,5 @@ if (gallery.style.display === "flex") {
 if(a.focus() && e.key == "Enter"){
     a.click();
   }
-  if(article.focus() && e.key == "Enter"){
-    article.click()
-  }
+
 }
