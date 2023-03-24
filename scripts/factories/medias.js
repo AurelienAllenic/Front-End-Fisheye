@@ -56,7 +56,7 @@ function getMediaCardDOM() {
         ///////////////////////
 
         // Container for image
-        const containerImg = document.createElement('span')
+        const containerImg = document.createElement('button')
         containerImg.setAttribute("onclick", "openGallery(this)")
         containerImg.setAttribute("class", "gallery-open")
         ///////////////////////
@@ -100,7 +100,7 @@ function getMediaCardDOM() {
         ///////////////////////
             
             // Creating clickable div to contain our video tag
-            const divVideo = document.createElement('div')
+            const divVideo = document.createElement('button')
             divVideo.setAttribute("onclick", "openGallery(this)") 
             ///////////////////////
 

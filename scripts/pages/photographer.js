@@ -154,6 +154,7 @@ async function init() {
    await fetchMedias();
   displayDataPhotographer(OurPhotographer);
   displayData(mediasOfPhotographer);
+  
 }
 
 init();
@@ -372,22 +373,31 @@ message.addEventListener("input", (e) => {
 
  document.onkeydown = (e) => {
   let modal = document.getElementById("contact_modal")
+  let a = document.getElementById('logo');
+  let modalOppening = document.getElementById("modal_oppening")
+  let arrow = document.getElementById('button_arrow');
+  let article = document.getElementsByClassName('gallery-open');
+  let gallery = document.getElementById("medias_modal");
   e = e || window.event;
-  if (e.key === 'ArrowLeft') {
+ 
+if (gallery.style.display === "flex") {
+    if(e.key === 'ArrowLeft'){
       document.getElementById('gallery-previous').click();
-  } else if (e.key === 'ArrowRight') {
+    }
+    else if (e.key === 'ArrowRight') {
       document.getElementById('gallery-next').click();
-  } else if (e.key === 'Escape') {
-      document.getElementById('gallery-close').click();
-      document.getElementById('modal_closure').click();
-  } else if (e.key === "Enter" && modal.style.display === "block") {
-      document.getElementById('btn-submit').click();
-  }else if(e.key === "Enter"){
-      document.getElementById('arrow_selection').click();
-     /* let heart =document.getElementsByClassName("heart");
-      console.log(heart)
-      heart.forEach((hea => {
-        hea.click();
-      }))*/
+    }
+   else if (e.key === 'Escape') {
+      document.getElementById('gallery-close').click()}  
+ }
+
+
+ if (modal.style.display === "block") {
+  if(e.key === 'Escape'){
+        document.getElementById('modal_closure').click();
+      }
+}  
+if(a.focus() && e.key == "Enter"){
+    a.click();
   }
 }

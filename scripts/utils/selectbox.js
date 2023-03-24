@@ -11,9 +11,9 @@ selector.innerHTML = `
         <div id="selectBoxVisible">
             <span class="container_arrow_first_choice">
                 <button type="button" class="btn-choice" id="first-choice" data-filtre="likes">Popularité</button>
-              <p class="button-arrow" tabindex="10">
+              <button class="button-arrow" id="button_arrow" tabindex="0">
                     <img src="/assets/icons/chevron-up-solid.svg" class="arrow_selection" id="arrow_selection" role="button" aria-hashpop="listbox" aria-expanded/> 
-                </p>
+                </button>
             </span>
             <span id="hidden_options" class="hidden_options">
             <button type="button" class="btn-choice" data-filtre="date" id="second-choice" tabindex="0">Date</button>
@@ -26,7 +26,7 @@ selector.innerHTML = `
 let hiddenOptions = document.getElementById("hidden_options")
 hiddenOptions.style.display = "none";
 // Getting our arrow for selectbox
-let arrow = document.getElementById("arrow_selection");
+let arrow = document.getElementById("button_arrow");
 // IsOpen to check if the selectbox box is open
 let isOpen = false;
 // Our first button of the selectbox
@@ -35,6 +35,9 @@ let firstOption = document.getElementById("first-choice");
 const selectOptions = document.getElementById("OurSelectBox");
 // Getting all buttons of the selectbox
 const allButtons = selectOptions.querySelectorAll("button");
+let ourButtons = []
+ourButtons.push(allButtons[0], allButtons[2], allButtons[3])
+console.log(ourButtons)
 
 // Handling opening and closure of the list
     arrow.onclick = function(){
@@ -71,7 +74,7 @@ function closeSelect() {
 
 // Function that first, handles the changing of text inside first button on click
 function handleButtonsOptions() {
-  allButtons.forEach((button) => {
+  ourButtons.forEach((button) => {
     button.onclick = () => {
 //Getting infos about the clicked button, to, adapt the selectbox and filter datas
     const buttonText = button.textContent;
