@@ -120,6 +120,8 @@ function getMediaCardDOM() {
             videoTag.setAttribute("data-position", position);
             videoTag.setAttribute("class", "gallery-item-img")
             videoTag.setAttribute('data-title', title)
+            videoTag.setAttribute('alt', title)
+            videoTag.setAttribute('aria-label', "click to open slider")
             ///////////////////////
 
             article.appendChild(divVideo);
