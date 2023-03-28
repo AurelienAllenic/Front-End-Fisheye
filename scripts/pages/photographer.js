@@ -134,7 +134,7 @@ function openGallery(object){
     modalImg.classList.add('none');
     galleryVideo.classList.remove('none');
     galleryVideo.src = img.getAttribute('src');
-
+    sourceVideo.src = img.getAttribute('src');
   }
   galleryTitle.innerHTML = img.getAttribute('data-title');
   galleryTitle.classList.add("modal_gallery")
