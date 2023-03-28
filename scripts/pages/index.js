@@ -34,7 +34,7 @@ for(let i= 0; i < photographers.photographers.length; i++){
         });
     };
 
-    async function init(e) {
+    async function init() {
       
         // Récupère les datas des photographes
         const { photographers } = await getPhotographers();
